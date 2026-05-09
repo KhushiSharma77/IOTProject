@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex justify-center items-center h-screen">
+
+  <div class="bg-white p-8 rounded shadow w-96">
+
+    <h1 class="text-3xl font-bold mb-6 text-center">
+      Login
+    </h1>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+      class="border w-full p-3 mb-4"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      class="border w-full p-3 mb-4"
+    >
+
+    <button
+      onclick="login()"
+      class="bg-blue-500 text-white w-full p-3"
+    >
+      Login
+    </button>
+
+    <p class="mt-4 text-center">
+      <a href="/register.html" class="text-blue-500">
+        Register Here
+      </a>
+    </p>
+
+  </div>
+
+</div>
+
+<script>
+
+async function login() {
+
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      email,
+      password
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.success) {
+
+    localStorage.setItem("username", data.name);
+
+    window.location.href = "/dashboard.html";
+
+  } else {
+
+    alert("Login Failed");
+
+  }
+}
+
+</script>
+
+</body>
+</html>

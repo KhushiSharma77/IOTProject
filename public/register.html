@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+<div class="flex justify-center items-center h-screen">
+
+  <div class="bg-white p-8 rounded shadow w-96">
+
+    <h1 class="text-3xl font-bold mb-6 text-center">
+      Register
+    </h1>
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Name"
+      class="border w-full p-3 mb-4"
+    >
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+      class="border w-full p-3 mb-4"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      class="border w-full p-3 mb-4"
+    >
+
+    <button
+      onclick="registerUser()"
+      class="bg-green-500 text-white w-full p-3"
+    >
+      Register
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+async function registerUser() {
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name,
+      email,
+      password
+    })
+  });
+
+  const data = await res.text();
+
+  alert(data);
+
+  window.location.href = "/index.html";
+}
+
+</script>
+
+</body>
+</html>
